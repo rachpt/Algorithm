@@ -30,9 +30,28 @@ int partition(int * arr, int begin, int end) {
     return low;
 }
 
+/**
+ * 另外的分割模式
+ */
+int partition2(int* arr,int begin,int end){
+    int pivot=arr[begin]; // 直接取最后一个也可以
+    swap(arr[begin],arr[end]);
+
+    int big=begin-1; // 交换前 big 自增
+    for(int small=begin; small<end;small++){
+        if(arr[small]<=pivot){
+            big++;
+            swap(arr[big],arr[small]);
+        }
+    }
+    swap(arr[big+1],arr[end]);
+    return big+1;
+}
+
 void quicksort(int *arr,int begin,int end){
     if(begin < end){
-        int p=partition(arr,begin,end);
+        //int p=partition(arr,begin,end);
+        int p=partition2(arr,begin,end);
         quicksort(arr,begin,p-1);
         // +1 -1 将p处孤立出来
         quicksort(arr,p+1,end);
